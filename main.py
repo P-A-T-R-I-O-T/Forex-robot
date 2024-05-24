@@ -1,1 +1,3 @@
-print('привет мир')
+"""
+Изучение библиотек MetaTrader API, OANDA API и др
+"""
