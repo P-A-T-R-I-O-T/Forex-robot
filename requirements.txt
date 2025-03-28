@@ -6,14 +6,9 @@ packaging==24.2
 pandas==2.2.3
 protobuf==4.25.6
 python-dateutil==2.9.0.post0
+python-dotenv==1.1.0
 pytz==2025.1
 six==1.17.0
 tinkoff==0.1.1
 tinkoff-investments==0.2.0b109
 tzdata==2025.1
-
-
-tinkoff-investments>=1.0.0
-pandas>=2.0.0
-python-dotenv>=1.0.0
-aiofiles>=22.0.0  # Для асинхронной работы с файлами

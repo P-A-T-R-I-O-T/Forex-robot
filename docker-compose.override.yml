@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    volumes:
+      - ./src:/app/src  # Монтирование кода для hot-reload
+    command: ["watchmedo", "auto-restart", "--directory=./src", "--pattern=*.py", "--recursive", "--", "python", "-m", "src.main"]

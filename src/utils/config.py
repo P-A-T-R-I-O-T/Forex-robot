@@ -1,32 +1,45 @@
 # Загрузка конфигурации
 
 
+from dotenv import load_dotenv
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 from typing import Optional
 
+# Загрузка переменных окружения
+load_dotenv(Path(__file__).parent.parent.parent / '.env')
 
 class Config:
     """Класс для работы с конфигурацией приложения"""
 
     def __init__(self):
-        load_dotenv(Path(__file__).parent.parent / '.env')
+        self.TOKEN = self._get_required_env('TINKOFF_TOKEN')
+        self.ACCOUNT_ID = self._get_required_env('ACCOUNT_ID')
+        self.REPORTS_DIR = self._get_path_env('REPORTS_DIR', 'reports')
+        self.LOG_LEVEL = self._get_optional_env('LOG_LEVEL', 'INFO').upper()
 
-        self.TOKEN: str = self._get_env('TINKOFF_TOKEN')
-        self.ACCOUNT_ID: str = self._get_env('ACCOUNT_ID')
-        self.REPORTS_DIR: Path = Path(self._get_env('REPORTS_DIR', 'reports'))
-        self.LOG_LEVEL: str = self._get_env('LOG_LEVEL', 'INFO')
-
-    def _get_env(self, key: str, default: Optional[str] = None) -> str:
-        """Получение переменной окружения"""
-        value = os.getenv(key, default)
+    def _get_required_env(self, key: str) -> str:
+        """Получение обязательной переменной окружения"""
+        value = os.getenv(key)
         if value is None:
-            raise ValueError(f"Не задана обязательная переменная окружения: {key}")
+            raise ValueError(f"Обязательная переменная {key} не найдена в .env")
         return value
 
-    def validate(self):
-        """Валидация конфигурации"""
-        required = [self.TOKEN, self.ACCOUNT_ID]
-        if not all(required):
-            raise ValueError("Не все обязательные параметры конфигурации заданы")
+    def _get_optional_env(self, key: str, default: str) -> str:
+        """Получение необязательной переменной с дефолтным значением"""
+        return os.getenv(key, default)
+
+    def _get_path_env(self, key: str, default: str) -> Path:
+        """Получение и создание пути из переменной окружения"""
+        path = Path(self._get_optional_env(key, default))
+        path.mkdir(parents=True, exist_ok=True)
+        return path
+
+    @property
+    def is_valid(self) -> bool:
+        """Проверка валидности конфигурации"""
+        return all([self.TOKEN, self.ACCOUNT_ID])
+
+    def __repr__(self) -> str:
+        return (f"Config(TOKEN=***, ACCOUNT_ID={self.ACCOUNT_ID}, "
+                f"REPORTS_DIR={self.REPORTS_DIR}, LOG_LEVEL={self.LOG_LEVEL})")
