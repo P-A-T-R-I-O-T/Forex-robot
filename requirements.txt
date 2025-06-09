@@ -1,0 +1,52 @@
+# Основные зависимости
+aiohttp==3.11.16
+asyncio==3.4.3
+numpy==2.0.0
+pandas==2.2.3
+python-dotenv==1.1.0
+loguru==0.7.3
+
+# Tinkoff Invest API
+tinkoff-investments
+
+# Анализ данных
+# ta-lib==0.4.28
+scipy==1.15.2
+statsmodels==0.14.4
+
+# Машинное обучение
+tensorflow==2.19.0
+#scikit-learn==1.4.1.post1
+scikit-learn==1.6.1
+keras==3.9.2
+
+# Визуализация
+matplotlib==3.10.1
+plotly==6.0.1
+seaborn==0.13.2
+
+# База данных
+asyncpg==0.30.0
+sqlalchemy==2.0.40
+alembic==1.15.2
+
+# CLI
+rich==14.0.0
+questionary==2.1.0
+typer==0.15.2
+
+# Тестирование
+pytest==8.3.5
+pytest-asyncio==0.26.0
+pytest-cov==6.1.1
+
+# Инструменты разработки
+black==25.1.0
+mypy==1.15.0
+ruff==0.11.5
+
+# Backtesting and optimization
+optuna==4.3.0
+scikit-optimize==0.10.2
+#pyfolio==0.9.2
+quantstats==0.0.64
