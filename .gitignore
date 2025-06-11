@@ -1,3 +1,18 @@
 .venv/
 *.so
 .env
+
+# Логи ошибок
+*.log
+*.log.*
+
+# Питоновские кэш-файлы
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
